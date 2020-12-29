@@ -58,6 +58,7 @@ echo "cross-initialize"
 echo ""
 echo "# 3. a) compile ros2 code"
 echo "cross-colcon-build --packages-up-to ros2topic"
+echo "* maybe has to be executed twice to compile fastrtps package *"
 
 echo ""
 echo "# 3. b) custom ros2 packages"

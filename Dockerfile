@@ -1,8 +1,9 @@
-FROM ubuntu:18.04
+FROM ubuntu:20.04
 
-# Install dependencies
-RUN apt-get update
-RUN apt-get install -y \
+# install dependencies
+RUN apt update
+RUN DEBIAN_FRONTEND="noninteractive" apt -y install tzdata
+RUN apt install -y \
     wget \
     tar \
     python3-pip \
@@ -14,12 +15,12 @@ RUN apt-get install -y \
     rsync
 RUN echo user_allow_other >> /etc/fuse.conf
 
-# Add user
+# add 'develop' user
 RUN useradd -m develop
 RUN echo "develop:develop" | chpasswd
 RUN usermod -aG sudo develop
 
-# ROS2 developmnet dependencies
+# ros2 development dependencies
 USER develop
 RUN pip3 install \
     rosinstall_generator \
@@ -28,13 +29,13 @@ RUN pip3 install \
     lark-parser
 ENV PATH=/home/develop/.local/bin/:$PATH
 
-# Install compiler
+# install compiler
 USER root
 WORKDIR /tmp
 RUN wget https://github.com/Pro/raspi-toolchain/releases/latest/download/raspi-toolchain.tar.gz
 RUN tar xfz raspi-toolchain.tar.gz --strip-components=1 -C /opt
 
-# Prepare workspace
+# prepare ws
 USER develop
 WORKDIR /home/develop
 COPY toolchain.cmake toolchain.cmake
