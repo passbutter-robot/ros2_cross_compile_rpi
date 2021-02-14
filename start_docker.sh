@@ -45,6 +45,8 @@ echo "sudo apt install sshfs"
 echo ""
 echo ""
 
+echo "sudo apt install libtinyxml2-dev"
+
 echo "ros2 cross-compilation:"
 
 echo ""

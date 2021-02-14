@@ -12,7 +12,8 @@ RUN apt install -y \
     qemu-user-static \
     python3-numpy \
     sshfs \
-    rsync
+    rsync \
+    vim 
 RUN echo user_allow_other >> /etc/fuse.conf
 
 # add 'develop' user
@@ -26,7 +27,7 @@ RUN pip3 install \
     rosinstall_generator \
     colcon-common-extensions \
     vcstool \
-    lark-parser
+    lark-parser 
 ENV PATH=/home/develop/.local/bin/:$PATH
 
 # install compiler

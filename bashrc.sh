@@ -1,4 +1,5 @@
 export ROS_DISTRO=foxy
+export RPI_IP_ADDR=192.168.178.43
 
 cross-colcon-build() {
     if [ ! "$(ls -A /home/develop/rootfs/)" ]; then
@@ -34,4 +35,12 @@ cross-generator() {
     export ROS_PACKAGE_PATH=/home/develop/ros2_ws/src
     rosinstall_generator $1 --deps --exclude RPP --rosdistro ${ROS_DISTRO} > /tmp/rospkgs.repos
     vcs import ${ROS_PACKAGE_PATH} < /tmp/rospkgs.repos
+}
+
+passbutter_driver_build() {
+    cross-colcon-build --packages-up-to passbutter_driver
+}
+
+rpi_install() {
+    scp -r install pi@${RPI_IP_ADDR}:/home/pi/ros2
 }
